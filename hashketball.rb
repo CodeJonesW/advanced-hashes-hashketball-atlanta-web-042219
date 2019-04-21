@@ -1,11 +1,18 @@
 def game_hash
-  hashketball = {:home => {:team_name => "Brooklyn Nets", :colors => ["Black","White"], :players => {
+  hashketball = 
+  {:home => 
+  {:team_name => "Brooklyn Nets",
+  :colors => ["Black","White"],
+  :players => {
     "Alan Anderson" => {:number => 0, :shoe => 16, :points => 22, :rebounds => 12, :assists => 12, :steals => 3, :blocks => 1, :slam_dunks => 1},
     "Reggie Evans" => {:number => 30, :shoe => 14, :points => 12, :rebounds => 12, :assists => 12, :steals => 12, :blocks => 12, :slam_dunks => 7},
     "Brook Lopez" => {:number => 11, :shoe => 17, :points => 17, :rebounds => 19, :assists => 10, :steals => 3, :blocks => 1, :slam_dunks => 15},
     "Mason Plumlee" => {:number => 1, :shoe => 19, :points => 26, :rebounds => 12, :assists => 6, :steals => 3, :blocks => 8, :slam_dunks => 5},
     "Jason Terry" => {:number => 31, :shoe => 15, :points => 19, :rebounds => 2, :assists => 2, :steals => 4, :blocks => 11, :slam_dunks => 1} }},
-    :away => {:team_name => "Charlotte Hornets", :colors => ["Turquoise","Purple"], :players => {
+    :away => 
+    {:team_name => "Charlotte Hornets",
+    :colors => ["Turquoise","Purple"],
+    :players => {
     "Jeff Adrien" => {:number => 4, :shoe => 18, :points => 10, :rebounds => 1, :assists => 1, :steals => 2, :blocks => 7, :slam_dunks => 2}, 
     "Bismak Biyombo" => {:number => 0, :shoe => 16, :points => 12, :rebounds => 4, :assists => 7, :steals => 7, :blocks => 15, :slam_dunks => 10}, 
     "DeSagna Diop" => {:number => 2, :shoe => 14, :points => 24, :rebounds => 12, :assists => 12, :steals => 4, :blocks => 5, :slam_dunks => 5}, 
@@ -14,88 +21,55 @@ def game_hash
 end
 
 def num_points_scored(name)
-   if game_hash[:home][:players].include?(name)
-      return game_hash[:home][:players][name][:points]
-   elsif game_hash[:away][:players].include?(name)
-      return game_hash[:away][:players][name][:points]
-   end
+  if game_hash[:home][:players].include?(name)
+     return game_hash[:home][:players][name][:points]
+  else game_hash[:away][:players].include?(name)
+     return game_hash[:away][:players][name][:points]
   end
-
+end
   
 def shoe_size(name)
-   if game_hash[:home][:players].include?(name)
-      return game_hash[:home][:players][name][:shoe]
-   elsif game_hash[:away][:players].include?(name)
-      return game_hash[:away][:players][name][:shoe]
-   end
+  if game_hash[:home][:players].include?(name)
+     return game_hash[:home][:players][name][:shoe]
+  else game_hash[:away][:players].include?(name)
+     return game_hash[:away][:players][name][:shoe]
   end
-  
+end
+
 def team_colors(name)
-   if game_hash[:home][:team_name].include?(name)
-      return game_hash[:home][:colors]
-   elsif game_hash[:away][:team_name].include?(name)
-      return game_hash[:away][:colors]
-   end
+  if game_hash[:home][:team_name].include?(name)
+     return game_hash[:home][:colors]
+  else game_hash[:away][:team_name].include?(name)
+     return game_hash[:away][:colors]
   end
-  
+end
+
 def team_names(hash = game_hash)
   new_array = []
-  new_array.push(hash[:home][:team_name])
-  new_array.push(hash[:away][:team_name])
+ new_array.push(hash[:home][:team_name])
+ new_array.push(hash[:away][:team_name])
 end
 
 def player_numbers(name_of_team)
-  numbers = []
-  game_hash.each do |team, chars|
-    if name_of_team == game_hash[team][:team_name]
-      game_hash[team][:players].each do |name, stats|
-        numbers.push(stats[:number])
+ list_of_jersey_nums = []     ## establish list of nums
+ game_hash.each do |team, chars|  ## iterate through top
+   if name_of_team == game_hash[team][:team_name] 
+     game_hash[team][:players].each do |name, stats|
+        list_of_jersey_nums.push(stats[:number])
       end
     end
-  end
-  return numbers
+end 
+return list_of_jersey_nums
 end
-
 
 def player_stats(name)
   if game_hash[:home][:players].include?(name)
-    return game_hash[:home][:players][name]
-  else game_hash[:away][:players].include?(name)
-    return game_hash[:away][:players][name]
-  end
+    game_hash[:home][:players][name]
+  elsif game_hash[:away][:players].include?(name)
+    game_hash[:away][:players][name]
 end
-
+end
 
 def big_shoe_rebounds
-  names = []
-  shoe_sizes = []
 
-  game_hash.each do |team, chars|
-    game_hash[team][:players].each do |name,stats|
-      names.push(name)
-      shoe_sizes.push(stats[:shoe])
-    end
-  end
-
-  largest = -1
-  shoe_sizes.each do |x|
-    if x > largest
-      largest = x
-    end
-  end
-  
-  player_with_largest = names[shoe_sizes.index(largest)]
-  
-  game_hash.each do |team, chars|
-    game_hash[team][:players].each do |name, stats|
-     if player_with_largest == name
-       return stats[:rebounds]
-  
-      end
-    end
-  end
 end
-
-  
-  
-  
